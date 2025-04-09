@@ -1,4 +1,5 @@
 interface TAttendance {
+  id: string;
   quiz_id: string;
   due_at: string;
   name: string;
@@ -8,7 +9,7 @@ const fetchAttendance: () => Promise<TAttendance[] | Error> = async () => {
   try {
     let metaData = await fetch(
       process.env.BASE_URL +
-        `/courses/${process.env.COURSE_ID}/assignments?search_term=Attendance&include[]=all_dates&bucket=upcoming&order_by=due_at`,
+        `/courses/${process.env.COURSE_ID}/assignments?search_term=Attendance&include[]=all_dates&bucket=past&order_by=due_at`,
       {
         method: "GET",
         headers: {
