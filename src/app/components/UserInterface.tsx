@@ -20,10 +20,12 @@ const UserInterface = ({
   const [total, setTotal] = React.useState<number | null>(null);
   const [scored, setScored] = React.useState<number | null>(null);
   const [timePassed, setTimePassed] = React.useState<number>(0);
+  const [status, setStatus] = React.useState<string | null>("hidden");
   React.useEffect(() => {
     if (selected) {
       fetchQuestion(selected).then((data) => {
         setCode(data[0].answers[0].text);
+        setStatus("visible");
       });
       const selectedAssignment = dataAssignments.find(
         (assignment) => assignment.quiz_id === selected
@@ -31,9 +33,16 @@ const UserInterface = ({
       if (selectedAssignment) {
         setAssignmentId(selectedAssignment.id);
       }
-      setInterval(() => {
+      let count = 1;
+      const timePassInterval = setInterval(() => {
         setTimePassed((prev) => (prev + 1) % 11);
-      }, 1000);
+        count++;
+        if (count > 11) {
+          clearInterval(timePassInterval);
+          setStatus("hidden");
+          count = 1;
+        }
+      }, 500);
     }
   }, [selected]);
   React.useEffect(() => {
@@ -55,26 +64,36 @@ const UserInterface = ({
         dataAssignments={dataAssignments}
         setSelected={setSelected}
       />
-      {code && (
-        <div className="flex flex-row items-center justify-center w-fit my-4">
-          <div>
-            Code: <span className="text-3xl">{code}</span>
-          </div>
-          <div className=" mx-4 w-[50px]">
-            <CircularProgressbar
-              value={timePassed}
-              maxValue={10}
-              text={`${10 - timePassed}s`}
-              strokeWidth={50}
-              styles={buildStyles({
-                strokeLinecap: "butt",
-                textColor: "white",
-                textSize: "2.5em",
-              })}
-            />
-          </div>
+
+      <div className="flex flex-row items-center justify-center w-fit my-4">
+        <div>
+          Code:{" "}
+          <span
+            className={`text-3xl transition transition-opacity ease-in-out duration-1000 ${
+              status === "hidden" ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            {code}
+          </span>
         </div>
-      )}
+        <div
+          className={`mx-4 w-[50px] transition ease-in-out duration-1000 ${
+            status === "hidden" ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <CircularProgressbar
+            value={timePassed}
+            maxValue={10}
+            text={`${10 - timePassed}s`}
+            strokeWidth={50}
+            styles={buildStyles({
+              strokeLinecap: "butt",
+              textColor: "white",
+              textSize: "2.5em",
+            })}
+          />
+        </div>
+      </div>
       {total && scored && (
         <div>
           Attendance Rate:
