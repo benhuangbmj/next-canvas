@@ -25,7 +25,7 @@ const CodeDisplay = ({
 
   React.useEffect(() => {
     setDisplay(false);
-    setTimePassed(0);
+    if (!renew) setTimePassed(0);
     if (timePassedIntervalRef.current !== null) {
       clearInterval(timePassedIntervalRef.current);
     }
@@ -50,7 +50,7 @@ const CodeDisplay = ({
           setDisplay(false);
           count = 1;
         }
-      }, 300);
+      }, 1000);
     }
     return () => {
       if (timePassedIntervalRef.current) {
