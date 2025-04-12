@@ -48,16 +48,19 @@ const AttendanceRateDisplay = ({
   }, [assignmentId]);
 
   return (
-    total &&
-    scored !== null && (
-      <div>
-        Attendance Rate:
-        <div className="w-32 inline-block mx-4">
+    <div
+      className={`transition transition-opacity ease-in-out duration-1000 ${
+        total && scored !== null ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      Attendance Rate:
+      <div className="w-32 inline-block mx-4">
+        {total && scored !== null && (
           <Progress value={(scored / total) * 100} />
-        </div>
-        {scored}/{total}
+        )}
       </div>
-    )
+      {scored}/{total}
+    </div>
   );
 };
 
