@@ -82,11 +82,11 @@ const CodeDisplay = ({
     }
   }, [renew]);
   return (
-    <div className="flex flex-row items-center justify-center w-fit my-4">
-      <div>
-        Code:{" "}
+    <div className="flex flex-row items-center justify-start gap-4">
+      <div className="flex flex-row items-center justify-start gap-4">
+        <span>Code: </span>
         <span
-          className={`mx-4 text-5xl transition transition-opacity ease-in-out duration-1000 ${
+          className={`text-5xl transition transition-opacity ease-in-out duration-1000 ${
             display ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -94,7 +94,7 @@ const CodeDisplay = ({
         </span>
       </div>
       <div
-        className={`mx-4 w-[70px] transition ease-in-out duration-1000 ${
+        className={`w-[70px] transition ease-in-out duration-1000 ${
           display ? "opacity-100" : "opacity-0"
         }`}
       >
