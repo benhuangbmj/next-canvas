@@ -22,7 +22,14 @@ const CodeDisplay = ({
   const timePassedIntervalRef = React.useRef<ReturnType<
     typeof setInterval
   > | null>(null);
+  const quizIdRef = React.useRef<string | null>(null);
 
+  React.useEffect(() => {
+    if (quizIdRef.current !== quizId) {
+      setRenew(true);
+      quizIdRef.current = quizId;
+    }
+  }, [dataAssignments, quizId]);
   React.useEffect(() => {
     setDisplay(false);
     if (!renew) setTimePassed(0);
@@ -57,7 +64,7 @@ const CodeDisplay = ({
         clearInterval(timePassedIntervalRef.current);
       }
     };
-  }, [quizId, dataAssignments, renew]);
+  }, [renew]);
   React.useEffect(() => {
     if (renew && quizId) {
       updateCode({ quizId: quizId })
@@ -66,7 +73,7 @@ const CodeDisplay = ({
             setTimeout(() => {
               setTimePassed(0);
               setRenew(false);
-            }, 3000);
+            }, 1000);
           }
         })
         .catch((error) => {
@@ -79,7 +86,7 @@ const CodeDisplay = ({
       <div>
         Code:{" "}
         <span
-          className={`text-3xl transition transition-opacity ease-in-out duration-1000 ${
+          className={`mx-4 text-5xl transition transition-opacity ease-in-out duration-1000 ${
             display ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -87,7 +94,7 @@ const CodeDisplay = ({
         </span>
       </div>
       <div
-        className={`mx-4 w-[50px] transition ease-in-out duration-1000 ${
+        className={`mx-4 w-[70px] transition ease-in-out duration-1000 ${
           display ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -99,7 +106,7 @@ const CodeDisplay = ({
           styles={buildStyles({
             strokeLinecap: "butt",
             textColor: "white",
-            textSize: "2.5em",
+            textSize: "3em",
           })}
         />
       </div>
