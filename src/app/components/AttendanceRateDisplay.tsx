@@ -48,18 +48,22 @@ const AttendanceRateDisplay = ({
   }, [assignmentId]);
 
   return (
-    <div
-      className={`transition transition-opacity ease-in-out duration-1000 ${
-        total && scored !== null ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      Attendance Rate:
-      <div className="w-32 inline-block mx-4">
-        {total && scored !== null && (
-          <Progress value={(scored / total) * 100} />
-        )}
+    <div className={`flex flex-row gap-4 justify-start items-center`}>
+      <div>Attendance Rate:</div>
+      <div
+        className={`flex flex-row gap-4 justify-start items-center transition transition-opacity ease-in-out duration-1000 ${
+          total && scored !== null ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="w-28">
+          {total && scored !== null && (
+            <Progress value={(scored / total) * 100} />
+          )}
+        </div>
+        <div>
+          {scored}/{total}
+        </div>
       </div>
-      {scored}/{total}
     </div>
   );
 };
