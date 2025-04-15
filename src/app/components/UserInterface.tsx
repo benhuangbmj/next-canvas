@@ -14,7 +14,7 @@ const UserInterface = ({
   const [selected, setSelected] = React.useState<string | null>(null);
 
   return (
-    <div className="p-4 flex flex-col gap-4 justify-start w-fit border border-black m-2">
+    <div className="p-4 flex flex-col gap-4 justify-start w-fit m-2 text-white bg-linear-to-br from-black to-black/40">
       <Stopwatch />
       <SelectAssignment
         dataAssignments={dataAssignments}
