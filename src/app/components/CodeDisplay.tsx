@@ -15,7 +15,7 @@ const CodeDisplay = ({
   quizId: string | null;
   dataAssignments: TAttendance[] | null;
 }) => {
-  const [code, setCode] = React.useState<any>("");
+  const [code, setCode] = React.useState<string>("");
   const [timePassed, setTimePassed] = React.useState<number>(0);
   const [display, setDisplay] = React.useState<boolean>(false);
   const [renew, setRenew] = React.useState<boolean>(false);
@@ -36,8 +36,8 @@ const CodeDisplay = ({
     if (timePassedIntervalRef.current !== null) {
       clearInterval(timePassedIntervalRef.current);
     }
-    if (dataAssignments && quizId && !renew) {
-      fetchCode(quizId).then((res) => {
+    if (quizIdRef.current && !renew) {
+      fetchCode(quizIdRef.current).then((res) => {
         setCode(res.code);
         setDisplay(true);
       });
@@ -66,8 +66,8 @@ const CodeDisplay = ({
     };
   }, [renew]);
   React.useEffect(() => {
-    if (renew && quizId) {
-      updateCode({ quizId: quizId })
+    if (renew && quizIdRef.current) {
+      updateCode({ quizId: quizIdRef.current })
         .then((res) => {
           if (res) {
             setTimeout(() => {
