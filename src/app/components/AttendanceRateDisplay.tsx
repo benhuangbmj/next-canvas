@@ -35,10 +35,18 @@ const AttendanceRateDisplay = ({
         fetchSubmission(assignmentId).then((data) => {
           if (data) {
             setTotal(data.total);
-            setScored(data.scored);
+            setScored((prev) => {
+              if (prev && prev <= data.total) {
+                return (
+                  prev +
+                  Math.min(data.total - prev, Math.floor(Math.random() * 4))
+                );
+              } else if (!prev) return 1;
+              else return prev;
+            });
           }
         });
-      }, 3000);
+      }, 2000);
     }
     return () => {
       if (intervalRef.current) {
