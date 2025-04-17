@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Canvas API Setup and Development Guide
 
-## Getting Started
+## 1. Install Dependencies
 
-First, run the development server:
+Start by installing the necessary dependencies for your project:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. Generate Your Canvas Access Token (Personal Access Token)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Canvas allows users to generate personal access tokens that can be used for API calls. These tokens are generated manually within the Canvas interface. Here’s how you can create one:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Steps to Generate Your Access Token:
+Log in to Canvas:
 
-## Learn More
+Go to the Canvas site (e.g., Canvas Instructure) and log in to your account.
 
-To learn more about Next.js, take a look at the following resources:
+Go to Account Settings:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+On the left sidebar, click on your Account (either the icon or your name).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then, click on Settings.
 
-## Deploy on Vercel
+Generate New Access Token:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Scroll down to the Approved Integrations section.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+At the bottom, click on + New Access Token.
+
+Fill in the Token Details:
+
+You will be prompted to give the token a name (e.g., “MyAppToken”).
+
+Optionally, set an expiration date if you want the token to expire after a specific period.
+
+Once done, click on Generate Token.
+
+Copy the Token:
+
+Canvas will display the token once. Copy it immediately, as it won’t be shown again.
+
+This token is your ACCESS_TOKEN. You’ll need it to authenticate your API requests.
+
+## 3. Get Course ID and Assignment ID
+
+In order to make meaningful API calls, you'll need the course id and assignment id. Here’s how you can retrieve them:
+
+- a Get Your Course ID:
+  Log in to your Canvas account.
+
+Navigate to the course you're interested in.
+
+In the URL, you will see the course ID as part of the URL. For example:
+
+https://canvas.instructure.com/courses/12345
+In this case, 12345 is the course ID.
+
+- b Get Your Assignment ID:
+  Inside your course, go to the Assignments section.
+
+Click on the assignment you're interested in.
+
+The assignment ID will also be part of the URL:
+
+https://canvas.instructure.com/courses/12345/assignments/67890
+Here, 67890 is the assignment ID.
+
+## 4. Run the Development Server
+
+After setting up your access token and getting your course and assignment IDs, you're ready to run the development server:
+
+npm run dev

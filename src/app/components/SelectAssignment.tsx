@@ -15,6 +15,8 @@ const SelectAssignment = ({
   dataAssignments: TAttendance[];
   setSelected: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
+  if (!dataAssignments.length)
+    return <div className="text-red-500">Unable to find assignments.</div>;
   return (
     <Select onValueChange={(value) => setSelected(value)}>
       <SelectTrigger>
